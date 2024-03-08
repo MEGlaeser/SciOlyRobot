@@ -1,6 +1,7 @@
 #define speed 255
 #define MoveTime 800
-#define StopTime 1200
+#define TurnTime 800
+#define StopTime 1500
 #define PWMR 6           // Right Wheel PWM pin to the motor driver ENA pin
 #define RightForward 8   // Right Motor direction pin 1 to the motor driver IN1 pin
 #define RightBackward 7   // Right Motor direction pin 2 to the motor driver IN2 pin
@@ -54,7 +55,7 @@ void forward(int step) {
   for (int i = 0; i < step; i++) {
     RightWheelsForward();
     LeftWheelsForward();
-    delay(StopTime);
+    delay(MoveTime);
     stop();
     delay(StopTime);
 
@@ -64,7 +65,27 @@ void backward(int step) {
   for (int i = 0; i < step; i++) {
     RightWheelsBackward();
     LeftWheelsBackward();
+    delay(MoveTime);
+    stop();
     delay(StopTime);
+
+  }
+}
+void right(int step) {
+  for (int i = 0; i < step; i++) {
+    LeftWheelsForward();
+    RightWheelsBackward();
+    delay(TurnTime);
+    stop();
+    delay(StopTime);
+
+  }
+}
+void left(int step) {
+  for (int i = 0; i < step; i++) {
+    RightWheelsForward();
+    LeftWheelsBackward();
+    delay(TurnTime);
     stop();
     delay(StopTime);
 
